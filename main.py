@@ -1,16 +1,8 @@
-from flask import Flask
+from todo import create_app
+from todo.models import db, User, Todo
 
-from todo import todo_bp
-from todo.models import db
+app = create_app('development')
 
-app = Flask(__name__)
-app.config.from_object('config')
-
-db.init_app(app)
-
-app.register_blueprint(todo_bp, url_prefix='/todo')
-
-
-if __name__ == '__main__':
-    app.debug = True
-    app.run()
+@app.shell_context_processor
+def make_shell_context():
+    return dict(db=db, User=User, Todo=Todo)

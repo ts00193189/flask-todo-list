@@ -1,5 +1,23 @@
 import os
 
-base_dir = os.path.abspath(os.path.dirname(__file__))
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(base_dir, 'db.sqlite')
-SQLALCHEMY_TRACK_MODIFICATIONS = False
+BASEDIR = os.path.abspath(os.path.dirname(__file__))
+
+
+class Config():
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+
+class DevelopmentConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEDIR, 'dev_db.sqlite')
+
+
+class TestingConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEDIR, 'test_db.sqlite')
+
+
+config = {
+    'development': DevelopmentConfig,
+    'testing': TestingConfig
+}
