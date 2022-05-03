@@ -5,6 +5,8 @@ BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 class Config():
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = 'set your key in env'
+    BOOTSTRAP_BOOTSWATCH_THEME = 'flatly'
 
 
 class DevelopmentConfig(Config):

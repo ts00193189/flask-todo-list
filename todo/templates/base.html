@@ -1,0 +1,41 @@
+<!doctype html>
+{% from 'bootstrap5/nav.html' import render_nav_item %}
+<html lang="en">
+    <head>
+        {% block head %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        {% block styles %}
+            {{ bootstrap.load_css("5") }}
+        {% endblock %}
+
+        <title>{% block title %}{% endblock %}</title>
+        {% endblock %}
+    </head>
+    <body>
+        <header class="p-3 bg-primary text-primary">
+            <div class="container">
+              <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                  <li><a href="{{ url_for('main.index') }}" class="nav-link px-2 text-white">Home</a></li>
+                </ul>
+
+                <div class="text-end">
+                  <a href="{{ url_for('auth.login') }}">
+                      <button type="button" class="btn btn-outline-light me-2">Login</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+        </header>
+
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+        {% block scripts %}
+            {{ bootstrap.load_js("5") }}
+        {% endblock %}
+    </body>
+</html>
