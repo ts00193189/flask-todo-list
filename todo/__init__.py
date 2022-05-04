@@ -2,8 +2,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap5
 from flask_login import LoginManager
-from todo.auth import auth
-from todo.main import main
 from config import config
 
 
@@ -11,6 +9,9 @@ db = SQLAlchemy()
 bootstrap = Bootstrap5()
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
+
+from todo.auth import auth
+from todo.main import main
 
 
 def create_app(config_name='development'):

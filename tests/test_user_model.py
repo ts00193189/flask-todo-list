@@ -8,7 +8,7 @@ class UserModelTestCase(unittest.TestCase):
         user = User(password='test')
         self.assertIsNotNone(user.password_hash)
 
-    def test_password_setter_not_equal_hash_with_same_password_return_true(self):
+    def test_password_setter_set_same_password_but_not_equal_return_true(self):
         user_first = User(password='test1')
         user_second = User(password='test1')
         self.assertNotEqual(user_first.password_hash, user_second.password_hash)
