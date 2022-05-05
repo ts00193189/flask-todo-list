@@ -7,7 +7,9 @@ from flask_login import login_user
 from flask_login import login_required
 from flask_login import logout_user
 from todo.auth.forms import LoginForm
+from todo.auth.forms import RegisterForm
 from todo.models import User
+from todo.models import db
 
 
 def login():
@@ -29,3 +31,14 @@ def logout():
     logout_user()
     flash('You have been logged out')
     return redirect(url_for('main.index'))
+
+
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User(name=form.user_name.data, password=form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Now yor login.')
+        return redirect(url_for('main.index'))
+    return render_template('register.html', form=form)

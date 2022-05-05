@@ -27,6 +27,9 @@
                       <button type="button" class="btn btn-outline-light me-2">Log out</button>
                   </a>
                   {% else %}
+                  <a href="{{ url_for('auth.register') }}">
+                      <button type="button" class="btn btn-outline-light me-2">Register</button>
+                  </a>
                   <a href="{{ url_for('auth.login') }}">
                       <button type="button" class="btn btn-outline-light me-2">Login</button>
                   </a>

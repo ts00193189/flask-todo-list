@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block title %}Todo-register{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            <h1>Register</h1>
+        </div>
+        <div class="col-md-8">
+            <hr class="bg-primary border-2 border-top border-primary">
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            {{ render_form(form) }}
+        </div>
+    </div>
+{% endblock %}
