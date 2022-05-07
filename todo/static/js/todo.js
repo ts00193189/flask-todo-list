@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function() {
     get_todos(user_name);
-    const task_submit_btn = document.getElementById('task_submit');
-    const task_form = document.getElementById('task_form');
-    task_submit_btn.addEventListener('click', function() {
+    const task_submit_btn = document.getElementById("task_submit");
+    const task_form = document.getElementById("task_form");
+    task_submit_btn.addEventListener("click", function() {
         let form_data = new FormData(task_form);
         add_todo(user_name, form_data);
         location.reload();
@@ -32,6 +32,16 @@ function get_todos(user_name) {
     });
 }
 
+function delete_todo(user_name, task_id) {
+    axios.delete("/todo/" + user_name + "/" + task_id)
+    .then(function(res) {
+        console.log("delete todo success");
+    })
+    .catch(function(err) {
+        console.log("delete todo error");
+    });
+}
+
 function add_todos_rows(todos, todo_body) {
     for (let idx = 0; idx < todos.length; idx++) {
         let row = document.createElement("tr");
@@ -46,16 +56,28 @@ function add_todos_rows(todos, todo_body) {
             row.append(data);
         }
 
-        for (let btn_name of ["edit", "delete"]) {
+        for (let btn_type of ["edit", "delete"]) {
             let col = document.createElement("td");
-            let btn = document.createElement("button");
-            btn.setAttribute("type", "button");
-            btn.classList = "btn btn-outline-secondary btn-sm";
-            btn.innerHTML = btn_name;
+            let btn = create_btn(btn_type, todos[idx]);
             col.append(btn);
             row.append(col);
         }
-
         todo_body.append(row);
     }
+}
+
+function create_btn(btn_type, todo) {
+    let btn = document.createElement("button");
+    btn.setAttribute("type", "button");
+    btn.innerHTML = btn_type;
+    if (btn_type === "edit") {
+        btn.classList = "btn btn-outline-info btn-sm";
+    } else if (btn_type === "delete") {
+        btn.classList = "btn btn-outline-danger btn-sm delete-btn";
+        btn.addEventListener("click", function() {
+            delete_todo(user_name, todo["task_id"]);
+            location.reload();
+        });
+    }
+    return btn;
 }

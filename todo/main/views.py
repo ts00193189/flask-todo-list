@@ -40,5 +40,11 @@ def update_todo():
     pass
 
 
-def delete_todo():
-    pass
+def delete_todo(user_name, task_id):
+    todo = Todo.query.filter_by(id=task_id).first_or_404()
+    todo.delete()
+    return jsonify({'msg': 'success'})
+
+
+
+
