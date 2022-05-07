@@ -52,8 +52,8 @@
             {% block content %}
             {% endblock %}
         </div>
+        {{ bootstrap.load_js("5") }}
         {% block scripts %}
-            {{ bootstrap.load_js("5") }}
         {% endblock %}
     </body>
 </html>
