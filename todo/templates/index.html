@@ -52,6 +52,42 @@
                     </div>
                 </div>
 
+                <div class="modal fade" id="edit_modal" tabindex="-1" aria-labelledby="edit_label" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="edit_label">Edit task</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="edit_form" name="edit_form">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <div class="mb-3 required">
+                                        <label for="edit_name" class="col-form-label">Task</label>
+                                        <input type="text" class="form-control" id="edit_name" name="edit_name" minlength="1" maxlength="200" required>
+                                    </div>
+                                    <div class="mb-3 required">
+                                        <label for="edit_content" class="col-form-label">Content</label>
+                                        <textarea class="form-control" id="edit_content" name="edit_content" required></textarea>
+                                    </div>
+                                    <div class="mb-3 required">
+                                        <label for="edit_date" class="col-form-label">Date</label>
+                                        <input class="form-control" id="edit_date" name="edit_date" required type="date">
+                                    </div>
+                                    <div class="mb-3 required">
+                                        <label for="edit_time" class="col-form-label">time</label>
+                                        <input class="form-control" id="edit_time" name="edit_time" required type="time">
+                                    </div>
+                                    <div class="mb-3 text-end">
+                                        <button type="button" class="btn btn-primary" id="edit_submit" name="edit_submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <table class="table table-hover table-striped" id="todo_table">
                   <thead>
                     <tr>

@@ -49,6 +49,13 @@ class Todo(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    def update(self, task_name, task_content, task_date, task_time):
+        self.task_name = task_name
+        self.task_content = task_content
+        self.task_date = task_date
+        self.task_time = task_time
+        self.save()
+
     @property
     def serialize(self):
         data = {

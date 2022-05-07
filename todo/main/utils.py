@@ -1,15 +1,27 @@
 import datetime
 
+from flask import request
+
 
 class DateTimeConverter:
     @staticmethod
     def convert_date(form_date):
-        date_pieces = form_date.split('-')
-        date = datetime.date(int(date_pieces[0]), int(date_pieces[1]), int(date_pieces[2]))
+        try:
+            date_pieces = form_date.split('-')
+            date = datetime.date(int(date_pieces[0]), int(date_pieces[1]), int(date_pieces[2]))
+        except:
+            return None
         return date
 
     @staticmethod
     def convert_time(form_time):
-        time_pieces = form_time.split(':')
-        time = datetime.time(int(time_pieces[0]), int(time_pieces[1]))
+        try:
+            time_pieces = form_time.split(':')
+            time = datetime.time(int(time_pieces[0]), int(time_pieces[1]))
+        except:
+            return None
         return time
+
+
+def get_form_attrs():
+    pass

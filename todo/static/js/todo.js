@@ -32,6 +32,16 @@ function get_todos(user_name) {
     });
 }
 
+function update_todo(user_name, task_id, form_data) {
+    axios.put("/todo/" + user_name + "/" + task_id, form_data)
+    .then(function(res) {
+        console.log("update todo success");
+    })
+    .catch(function(err) {
+        console.log("update todo error");
+    });
+}
+
 function delete_todo(user_name, task_id) {
     axios.delete("/todo/" + user_name + "/" + task_id)
     .then(function(res) {
@@ -71,7 +81,28 @@ function create_btn(btn_type, todo) {
     btn.setAttribute("type", "button");
     btn.innerHTML = btn_type;
     if (btn_type === "edit") {
+        btn.setAttribute("data-bs-toggle", "modal");
+        btn.setAttribute("data-bs-target", "#edit_modal");
         btn.classList = "btn btn-outline-info btn-sm";
+        btn.addEventListener("click", function() {
+            let edit_name = document.getElementById("edit_name");
+            let edit_content = document.getElementById("edit_content");
+            let edit_date = document.getElementById("edit_date");
+            let edit_time = document.getElementById("edit_time");
+            edit_name.value = todo["task_name"];
+            edit_content.value = todo["task_content"];
+            edit_date.value = todo["task_date"];
+            edit_time.value = todo["task_time"];
+
+            let edit_submit = document.getElementById("edit_submit");
+            let edit_form = document.getElementById("edit_form");
+            console.log(edit_form);
+            edit_submit.addEventListener("click", function() {
+                let edit_form_data = new FormData(edit_form);
+                update_todo(user_name, todo["task_id"], edit_form_data);
+                location.reload();
+            });
+        });
     } else if (btn_type === "delete") {
         btn.classList = "btn btn-outline-danger btn-sm delete-btn";
         btn.addEventListener("click", function() {
