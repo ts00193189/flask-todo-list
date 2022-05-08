@@ -67,5 +67,9 @@ def delete_todo(user_name, task_id):
     user = User.query.filter_by(name=user_name).first_or_404()
     if todo not in user.todo_list:
         abort(404)
-    todo.delete()
+
+    success = todo.delete()
+    if not success:
+        abort(400)
+
     return jsonify({'msg': 'success'})
