@@ -91,3 +91,15 @@ class TodoModelTestCase(BasicTestCase):
         self.assertFalse(todo.update(task_name='update', task_content='update', task_date='2040-01-01',
                                      task_time='11:11'))
         self.assertNotEqual(Todo.query.filter_by(id=todo.id).first().task_name, 'update')
+
+    def test_serialize_return_dict(self):
+        todo = Todo(task_name='test', task_content='test', task_date=datetime.datetime.now().date(),
+                    task_time=datetime.datetime.now().time(), user_id=1)
+        result = {
+            'task_id': todo.id,
+            'task_name': todo.task_name,
+            'task_content': todo.task_content,
+            'task_date': datetime.date.strftime(todo.task_date, '%Y-%m-%d'),
+            'task_time': datetime.time.strftime(todo.task_time, '%H:%M')
+        }
+        self.assertDictEqual(todo.serialize, result)
