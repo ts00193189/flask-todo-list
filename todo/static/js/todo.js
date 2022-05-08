@@ -96,7 +96,6 @@ function create_btn(btn_type, todo) {
 
             let edit_submit = document.getElementById("edit_submit");
             let edit_form = document.getElementById("edit_form");
-            console.log(edit_form);
             edit_submit.addEventListener("click", function() {
                 let edit_form_data = new FormData(edit_form);
                 update_todo(user_name, todo["task_id"], edit_form_data);

@@ -42,19 +42,38 @@ class Todo(db.Model):
         return '<Todo "{}">'.format(self.task_name)
 
     def save(self):
-        db.session.add(self)
-        db.session.commit()
+        user_ids = [user.id for user in User.query.all()]
+        if self.user_id not in user_ids:
+            return False
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except:
+            db.session.rollback()
+            return False
+        return True
 
     def delete(self):
-        db.session.delete(self)
-        db.session.commit()
+        try:
+            db.session.delete(self)
+            db.session.commit()
+        except:
+            db.session.rollback()
+            return False
+        return True
 
     def update(self, task_name, task_content, task_date, task_time):
         self.task_name = task_name
         self.task_content = task_content
         self.task_date = task_date
         self.task_time = task_time
-        self.save()
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except:
+            db.session.rollback()
+            return False
+        return True
 
     @property
     def serialize(self):

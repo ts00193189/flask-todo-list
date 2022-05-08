@@ -37,6 +37,7 @@ def get_todos(user_name):
     todos = [todo.serialize for todo in todo_list]
     return jsonify({'msg': 'success', 'todos': todos})
 
+
 @login_required
 def update_todo(user_name, task_id):
     todo = Todo.query.filter_by(id=task_id).first_or_404()

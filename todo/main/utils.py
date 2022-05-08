@@ -1,7 +1,5 @@
 import datetime
 
-from flask import request
-
 
 class DateTimeConverter:
     @staticmethod
@@ -21,7 +19,3 @@ class DateTimeConverter:
         except:
             return None
         return time
-
-
-def get_form_attrs():
-    pass

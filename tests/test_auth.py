@@ -1,23 +1,16 @@
-from unittest import TestCase
+from tests import BasicTestCase
 from todo import db
-from todo import create_app
-from todo.models import User
 
 
-class AuthViewsTestCase(TestCase):
+class AuthViewsTestCase(BasicTestCase):
     def setUp(self):
-        self.app = create_app('testing')
-        self.appctx = self.app.app_context()
-        self.appctx.push()
-        self.client = self.app.test_client()
+        super().setUp()
         db.create_all()
 
     def tearDown(self):
         db.session.remove()
         db.drop_all()
-        self.appctx.pop()
-        self.app = None
-        self.client = None
+        super().tearDown()
 
     def login_user(self):
         response = self.client.post(
