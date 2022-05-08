@@ -5,6 +5,7 @@ from todo.main.views import get_todos
 from todo.main.views import delete_todo
 from todo.main.views import update_todo
 from todo.main.errors import page_not_found
+from todo.main.errors import bad_request
 
 main = Blueprint('main', __name__)
 
@@ -16,3 +17,4 @@ main.add_url_rule('/<user_name>/<int:task_id>', view_func=delete_todo, methods=[
 main.add_url_rule('/<user_name>/<int:task_id>', view_func=update_todo, methods=['PUT'])
 
 main.app_errorhandler(404)(page_not_found)
+main.app_errorhandler(400)(bad_request)
