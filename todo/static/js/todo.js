@@ -57,7 +57,7 @@ function add_todos_rows(todos, todo_body) {
         let row = document.createElement("tr");
         let head = document.createElement("th");
         head.setAttribute("scope", "row");
-        head.innerHTML = todos[idx]["task_id"];
+        head.innerHTML = idx+1;
         row.append(head);
 
         for (let key of ["task_name", "task_content", "task_date", "task_time"]) {
