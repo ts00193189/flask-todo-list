@@ -1,7 +1,8 @@
 import datetime
 
 from tests import BasicTestCase
-from todo.models import User, Todo
+from todo.models import User
+from todo.models import Todo
 from todo import db
 
 
@@ -10,7 +11,7 @@ class UserModelTestCase(BasicTestCase):
         user = User(password='test')
         self.assertIsNotNone(user.password_hash)
 
-    def test_password_setter_set_same_password_but_not_equal_return_true(self):
+    def test_password_setter_set_same_password_but_not_equal_hash_return_true(self):
         user_first = User(password='test1')
         user_second = User(password='test1')
         self.assertNotEqual(user_first.password_hash, user_second.password_hash)
@@ -52,13 +53,13 @@ class TodoModelTestCase(BasicTestCase):
         self.assertTrue(todo.save())
         self.assertEqual(todo, Todo.query.filter_by(id=todo.id).first())
 
-    def test_save_not_exist_user_return_None(self):
+    def test_save_not_user_not_found_return_Fasle(self):
         todo = Todo(task_name='test', task_content='test', task_date=datetime.datetime.now().date(),
                     task_time=datetime.datetime.now().time(), user_id=42)
         self.assertFalse(todo.save())
-        self.assertIsNone(todo.query.filter_by(id=todo.id).first())
+        self.assertFalse(todo.query.filter_by(id=todo.id).first())
 
-    def test_delete_exist_todo_return_None(self):
+    def test_delete_valid_return_None(self):
         user = self.register_tester()
         todo = Todo(task_name='test', task_content='test', task_date=datetime.datetime.now().date(),
                     task_time=datetime.datetime.now().time(), user_id=user.id)
@@ -67,12 +68,12 @@ class TodoModelTestCase(BasicTestCase):
         self.assertTrue(todo.delete())
         self.assertIsNone(Todo.query.filter_by(id=todo.id).first())
 
-    def test_delete_not_exist_todo_return_None(self):
+    def test_delete_todo_not_found_return_False(self):
         todo = Todo(task_name='test', task_content='test', task_date=datetime.datetime.now().date(),
                     task_time=datetime.datetime.now().time(), user_id=42)
         self.assertFalse(todo.delete())
 
-    def test_update_valid_edit_return_updated_record(self):
+    def test_update_valid_return_updated_todo(self):
         user = self.register_tester()
         todo = Todo(task_name='test', task_content='test', task_date=datetime.datetime.now().date(),
                     task_time=datetime.datetime.now().time(), user_id=user.id)
@@ -82,7 +83,7 @@ class TodoModelTestCase(BasicTestCase):
                                     task_time=datetime.datetime.now().time()))
         self.assertEqual(Todo.query.filter_by(id=todo.id).first().task_name, 'update')
 
-    def test_update_invalid_edit_return_None(self):
+    def test_update_invalid_return_not_equal_todo(self):
         user = self.register_tester()
         todo = Todo(task_name='test', task_content='test', task_date=datetime.datetime.now().date(),
                     task_time=datetime.datetime.now().time(), user_id=user.id)

@@ -53,10 +53,10 @@ def update_todo(user_name, task_id):
 
     edit_date = DateTimeConverter.convert_date(edit_date)
     edit_time = DateTimeConverter.convert_time(edit_time)
-    if not edit_date or not edit_time:
-        abort(400)
 
-    todo.update(edit_name, edit_content, edit_date, edit_time)
+    success = todo.update(edit_name, edit_content, edit_date, edit_time)
+    if not success:
+        abort(400)
 
     return jsonify({'msg': 'success'})
 
