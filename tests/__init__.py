@@ -1,5 +1,5 @@
 from unittest import TestCase
-from todo import create_app, db
+from todo import create_app
 
 
 class BasicTestCase(TestCase):

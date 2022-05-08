@@ -9,9 +9,9 @@ from todo import db
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(30), unique=True, index=True)
+    name = db.Column(db.String(30), unique=True, index=True, nullable=False)
     password = db.Column(db.String(128))
-    password_hash = db.Column(db.String(128))
+    password_hash = db.Column(db.String(128), nullable=False)
     todo_list = db.relationship('Todo', backref='user')
 
     @property
@@ -32,11 +32,11 @@ class User(db.Model, UserMixin):
 class Todo(db.Model):
     __tablename__ = 'todos'
     id = db.Column(db.Integer, primary_key=True)
-    task_name = db.Column(db.String(200))
-    task_content = db.Column(db.Text)
-    task_date = db.Column(db.Date)
-    task_time = db.Column(db.Time)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    task_name = db.Column(db.String(200), nullable=False)
+    task_content = db.Column(db.Text, nullable=False)
+    task_date = db.Column(db.Date, nullable=False)
+    task_time = db.Column(db.Time, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     def __repr__(self):
         return '<Todo "{}">'.format(self.task_name)
