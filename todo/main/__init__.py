@@ -1,5 +1,9 @@
 from flask import Blueprint
-from todo.main.views import index, create_todo, get_todos, delete_todo, update_todo
+from todo.main.views import index
+from todo.main.views import create_todo
+from todo.main.views import get_todos
+from todo.main.views import delete_todo
+from todo.main.views import update_todo
 from todo.main.errors import page_not_found
 
 main = Blueprint('main', __name__)

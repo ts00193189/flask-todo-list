@@ -1,11 +1,12 @@
 import os
+import secrets
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config():
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = 'set your key in env'
+    SECRET_KEY = secrets.token_urlsafe(16)
     BOOTSTRAP_BOOTSWATCH_THEME = 'flatly'
 
 
