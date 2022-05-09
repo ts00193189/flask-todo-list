@@ -8,7 +8,13 @@
 pip install -r requirements.txt
 ```
 
-## 執行App
+## 執行 App
+
+建立 database：
+```
+flask db upgrade
+```
+
 Bash：
 ```
 export FLASK_APP=main.py
