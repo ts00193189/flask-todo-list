@@ -19,11 +19,8 @@ env:
 jobs:
   include:
     - stage: static analysis
-      name: "Echo static analysis"
-      script: echo static analysis
-    - stage: test
-      name: "Echo test"
-      script: echo test
+      name: "pylint"
+      script: make lint
     - stage: test
       name: "pytest"
-      script: flask test
+      script: make test
