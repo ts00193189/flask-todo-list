@@ -1,8 +1,17 @@
 SHELL := /bin/bash
 PYTHON_FILE := $(shell find . -type f -name "*.py" ! -path "**/venv/**")
 
+# if .env.example exists, use environment variable in .env.example
+ifneq ("$(wildcard .env)","")
+	include .env
+	export
+endif
+
 .PHONY: lint \
 		format \
+		test \
+		run-local \
+		setup \
 
 lint:
 	pylint $(PYTHON_FILE)
@@ -12,3 +21,9 @@ lint:
 format:
 	isort $(PYTHON_FILE)
 	autopep8 --in-place $(PYTHON_FILE)
+
+test:
+	flask test
+
+run-local:
+	flask run
