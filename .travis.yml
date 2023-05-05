@@ -8,6 +8,10 @@ stages:
   - static analysis
   - test
 
+env:
+  global:
+    - FLASK_APP=main.py
+
 jobs:
   include:
     - stage: static analysis
