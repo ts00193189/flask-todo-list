@@ -1,0 +1,21 @@
+language: python
+python:
+  - "3.10"
+install:
+  - pip install -r requirements.txt
+
+stages:
+  - static analysis
+  - test
+
+jobs:
+  include:
+    - stage: static analysis
+      name: "Echo static analysis"
+      script: echo static analysis
+    - stage: test
+      name: "Echo test"
+      script: echo test
+    - stage: test
+      name: "pytest"
+      script: flask test
