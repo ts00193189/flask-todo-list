@@ -14,6 +14,10 @@ endif
 		setup \
 		generate-pylintrc \
 		ci \
+		setup \
+
+setup:
+	flask db upgrade
 
 lint:
 	pylint $(PYTHON_FILE)
