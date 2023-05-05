@@ -1,0 +1,29 @@
+language: python
+
+python:
+  - "3.9"
+
+dist: jammy
+
+install:
+  - pip install -r requirements.txt
+
+stages:
+  - static analysis
+  - test
+
+env:
+  global:
+    - FLASK_APP=main.py
+
+jobs:
+  include:
+    - stage: static analysis
+      name: "Echo static analysis"
+      script: echo static analysis
+    - stage: test
+      name: "Echo test"
+      script: echo test
+    - stage: test
+      name: "pytest"
+      script: flask test
