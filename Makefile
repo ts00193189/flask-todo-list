@@ -12,6 +12,7 @@ endif
 		test \
 		run-local \
 		setup \
+		generate-pylintrc \
 
 lint:
 	pylint $(PYTHON_FILE)
@@ -27,3 +28,6 @@ test:
 
 run-local:
 	flask run
+
+generate-pylintrc:
+	pylint --generate-rcfile > .pylintrc
