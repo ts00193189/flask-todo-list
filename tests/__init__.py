@@ -1,4 +1,5 @@
 from unittest import TestCase
+
 from todo import create_app
 
 

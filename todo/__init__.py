@@ -1,19 +1,15 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap5
-from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
+
 from config import config
-
-
-db = SQLAlchemy()
-bootstrap = Bootstrap5()
-login_manager = LoginManager()
-login_manager.login_view = 'auth.login'
-csrf = CSRFProtect()
-
 from todo.auth import auth
 from todo.main import main
+
+from .models import db, login_manager
+
+bootstrap = Bootstrap5()
+csrf = CSRFProtect()
 
 
 def create_app(config_name='development'):

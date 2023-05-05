@@ -1,15 +1,8 @@
-from flask import render_template
-from flask import request
-from flask import url_for
-from flask import redirect
-from flask import flash
-from flask_login import login_user
-from flask_login import login_required
-from flask_login import logout_user
-from todo.auth.forms import LoginForm
-from todo.auth.forms import RegisterForm
-from todo.models import User
-from todo.models import db
+from flask import flash, redirect, render_template, request, url_for
+from flask_login import login_required, login_user, logout_user
+
+from todo.auth.forms import LoginForm, RegisterForm
+from todo.models import User, db
 
 
 def login():

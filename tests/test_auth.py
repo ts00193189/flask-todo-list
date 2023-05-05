@@ -41,7 +41,8 @@ class AuthViewsTestCase(BasicTestCase):
         response = self.register_user()
         self.assertEqual(response.status_code, 302)
         response = self.register_user()
-        self.assertIn('User name already exist.', response.get_data(as_text=True))
+        self.assertIn('User name already exist.',
+                      response.get_data(as_text=True))
 
     def test_login_exist_user_return_302(self):
         response = self.register_user()
@@ -51,11 +52,13 @@ class AuthViewsTestCase(BasicTestCase):
 
     def test_login_invalid_form_return_invalid_message(self):
         response = self.client.post('/auth/login', data={})
-        self.assertIn('This field is required.', response.get_data(as_text=True))
+        self.assertIn('This field is required.',
+                      response.get_data(as_text=True))
 
     def test_login_user_not_found_return_invalid_message(self):
         response = self.login_user()
-        self.assertIn('Invalid username or password', response.get_data(as_text=True))
+        self.assertIn('Invalid username or password',
+                      response.get_data(as_text=True))
 
     def test_logout_return_302(self):
         response = self.register_user()

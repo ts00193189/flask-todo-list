@@ -6,8 +6,9 @@ class DateTimeConverter:
     def convert_date(form_date):
         try:
             date_pieces = form_date.split('-')
-            date = datetime.date(int(date_pieces[0]), int(date_pieces[1]), int(date_pieces[2]))
-        except:
+            date = datetime.date(int(date_pieces[0]), int(
+                date_pieces[1]), int(date_pieces[2]))
+        except Exception:  # pylint: disable=broad-exception-caught
             return None
         return date
 
@@ -16,6 +17,6 @@ class DateTimeConverter:
         try:
             time_pieces = form_time.split(':')
             time = datetime.time(int(time_pieces[0]), int(time_pieces[1]))
-        except:
+        except Exception:  # pylint: disable=broad-exception-caught
             return None
         return time

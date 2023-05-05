@@ -1,7 +1,6 @@
 from flask import Blueprint
-from todo.auth.views import login
-from todo.auth.views import logout
-from todo.auth.views import register
+
+from todo.auth.views import login, logout, register
 
 auth = Blueprint('auth', __name__)
 
