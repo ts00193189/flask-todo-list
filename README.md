@@ -10,28 +10,23 @@ pip install -r requirements.txt
 
 ## 執行 App
 
-建立 database：
+建立 `.env`
 ```
-flask db upgrade
+cp .env.example .env
 ```
+修改 `FLASK_APP`，預設為 `main.py`
 
-Bash：
+執行
 ```
-export FLASK_APP=main.py
-flask run
-```
-
-CMD：
-```
-set FLASK_APP=main.py
-flask run
+make setup
+make run-local
 ```
 執行後可連線至 http://127.0.0.1:5000/todo/ 查看
 
 
 ## 執行測試
 ```
-flask test
+make test
 ```
 
 ## 登入
