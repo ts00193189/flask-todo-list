@@ -1,9 +1,8 @@
 import datetime
 
 from tests import BasicTestCase
-from todo.models import User
-from todo.models import Todo
 from todo import db
+from todo.models import Todo, User
 
 
 class UserModelTestCase(BasicTestCase):
@@ -14,12 +13,13 @@ class UserModelTestCase(BasicTestCase):
     def test_password_setter_set_same_password_but_not_equal_hash_return_true(self):
         user_first = User(password='test1')
         user_second = User(password='test1')
-        self.assertNotEqual(user_first.password_hash, user_second.password_hash)
+        self.assertNotEqual(user_first.password_hash,
+                            user_second.password_hash)
 
     def test_password_getter_raise_exception(self):
         user = User(password='test')
         with self.assertRaises(AttributeError):
-            user.password
+            user.password  # pylint: disable=pointless-statement
 
     def test_verify_password_correct_return_true(self):
         user = User(password='test')
@@ -79,9 +79,11 @@ class TodoModelTestCase(BasicTestCase):
                     task_time=datetime.datetime.now().time(), user_id=user.id)
         self.assertTrue(todo.save())
         self.assertEqual(todo, Todo.query.filter_by(id=todo.id).first())
-        self.assertTrue(todo.update(task_name='update', task_content='update', task_date=datetime.datetime.now().date(),
+        self.assertTrue(todo.update(task_name='update', task_content='update',
+                                    task_date=datetime.datetime.now().date(),
                                     task_time=datetime.datetime.now().time()))
-        self.assertEqual(Todo.query.filter_by(id=todo.id).first().task_name, 'update')
+        self.assertEqual(Todo.query.filter_by(
+            id=todo.id).first().task_name, 'update')
 
     def test_update_invalid_return_not_equal_todo(self):
         user = self.register_tester()
@@ -89,9 +91,11 @@ class TodoModelTestCase(BasicTestCase):
                     task_time=datetime.datetime.now().time(), user_id=user.id)
         self.assertTrue(todo.save())
         self.assertEqual(todo, Todo.query.filter_by(id=todo.id).first())
-        self.assertFalse(todo.update(task_name='update', task_content='update', task_date='2040-01-01',
+        self.assertFalse(todo.update(task_name='update', task_content='update',
+                                     task_date='2040-01-01',
                                      task_time='11:11'))
-        self.assertNotEqual(Todo.query.filter_by(id=todo.id).first().task_name, 'update')
+        self.assertNotEqual(Todo.query.filter_by(
+            id=todo.id).first().task_name, 'update')
 
     def test_serialize_return_dict(self):
         todo = Todo(task_name='test', task_content='test', task_date=datetime.datetime.now().date(),

@@ -1,11 +1,8 @@
-from flask import render_template
-from flask import request
-from flask import jsonify
-from flask import abort
+from flask import abort, jsonify, render_template, request
 from flask_login import login_required
-from todo.models import User
-from todo.models import Todo
+
 from todo.main.utils import DateTimeConverter
+from todo.models import Todo, User
 
 
 def index():
@@ -23,7 +20,8 @@ def create_todo(user_name):
     task_date = DateTimeConverter.convert_date(task_date)
     task_time = DateTimeConverter.convert_time(task_time)
 
-    todo = Todo(task_name=task_name, task_content=task_content, task_date=task_date, task_time=task_time,
+    todo = Todo(task_name=task_name, task_content=task_content,
+                task_date=task_date, task_time=task_time,
                 user_id=user.id)
     success = todo.save()
     if not success:

@@ -1,10 +1,12 @@
 import datetime
 
-from flask_login import UserMixin
-from werkzeug.security import generate_password_hash
-from werkzeug.security import check_password_hash
-from todo import login_manager
-from todo import db
+from flask_login import LoginManager, UserMixin
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import check_password_hash, generate_password_hash
+
+db = SQLAlchemy()
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
 
 
 class User(db.Model, UserMixin):
@@ -16,7 +18,7 @@ class User(db.Model, UserMixin):
     todo_list = db.relationship('Todo', backref='user')
 
     @property
-    def password(self):
+    def password(self):  # pylint: disable=function-redefined
         raise AttributeError('Password is write-only attribute')
 
     @password.setter
@@ -27,7 +29,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return '<User "{}">'.format(self.name)
+        return f'<User "{self.name}"'
 
 
 class Todo(db.Model):
@@ -40,7 +42,7 @@ class Todo(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     def __repr__(self):
-        return '<Todo "{}">'.format(self.task_name)
+        return f'<Todo "{self.task_name}"'
 
     def save(self):
         user_ids = [user.id for user in User.query.all()]
@@ -49,7 +51,7 @@ class Todo(db.Model):
         try:
             db.session.add(self)
             db.session.commit()
-        except:
+        except Exception:  # pylint: disable=broad-exception-caught
             db.session.rollback()
             return False
         return True
@@ -58,7 +60,7 @@ class Todo(db.Model):
         try:
             db.session.delete(self)
             db.session.commit()
-        except:
+        except Exception:  # pylint: disable=broad-exception-caught
             db.session.rollback()
             return False
         return True
@@ -71,7 +73,7 @@ class Todo(db.Model):
         try:
             db.session.add(self)
             db.session.commit()
-        except:
+        except Exception:  # pylint: disable=broad-exception-caught
             db.session.rollback()
             return False
         return True

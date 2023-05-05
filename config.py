@@ -4,7 +4,7 @@ import secrets
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 
-class Config():
+class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = secrets.token_urlsafe(16)
     BOOTSTRAP_BOOTSWATCH_THEME = 'flatly'
@@ -12,13 +12,15 @@ class Config():
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEDIR, 'dev_db.sqlite')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + \
+        os.path.join(BASEDIR, 'dev_db.sqlite')
 
 
 class TestingConfig(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEDIR, 'test_db.sqlite')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + \
+        os.path.join(BASEDIR, 'test_db.sqlite')
 
 
 config = {

@@ -1,12 +1,11 @@
 import datetime
 
-from todo.models import Todo
-from todo.models import User
-from todo import db
 from tests import BasicTestCase
+from todo import db
+from todo.models import Todo, User
 
 
-class MainViewsTestCase(BasicTestCase):
+class MainViewsTestCase(BasicTestCase):  # pylint: disable=too-many-public-methods
     def setUp(self):
         super().setUp()
         db.create_all()
@@ -240,7 +239,8 @@ class MainViewsTestCase(BasicTestCase):
         self.assertTrue(todo.save())
 
         todo_sec = Todo(task_name='test2', task_content='test2',
-                    task_date=datetime.date(2022, 1, 1), task_time=datetime.time(13, 0), user_id=2)
+                        task_date=datetime.date(2022, 1, 1),
+                        task_time=datetime.time(13, 0), user_id=2)
         self.assertTrue(todo_sec.save())
 
         response = self.login_user()
@@ -311,7 +311,8 @@ class MainViewsTestCase(BasicTestCase):
         self.assertTrue(todo.save())
 
         todo_sec = Todo(task_name='test2', task_content='test2',
-                        task_date=datetime.date(2022, 1, 1), task_time=datetime.time(13, 0), user_id=2)
+                        task_date=datetime.date(2022, 1, 1),
+                        task_time=datetime.time(13, 0), user_id=2)
         self.assertTrue(todo_sec.save())
 
         response = self.login_user()
