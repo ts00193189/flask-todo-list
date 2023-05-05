@@ -13,6 +13,7 @@ endif
 		run-local \
 		setup \
 		generate-pylintrc \
+		ci \
 
 lint:
 	pylint $(PYTHON_FILE)
@@ -31,3 +32,7 @@ run-local:
 
 generate-pylintrc:
 	pylint --generate-rcfile > .pylintrc
+
+ci:
+	make lint
+	make test
